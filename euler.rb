@@ -29,7 +29,7 @@ def fibonachi
 	while (mass[i] + mass[i-1]) < 4000000
 		i += 1
 		mass[i] = mass[i-1] + mass[i-2]
-		chet += mass[i] if(mass[i]%2 == 0)
+		chet += mass[i] if(mass[i].even?)
 	end
 # chet = Proc.new{ |x| x%2 == 0 }
 # p mass.select(&chet).reduce(&:+)
@@ -47,11 +47,13 @@ def prost?(num)
   true if (del.size == 1)
 end
 
+require 'prime'
+
 def find_del(num)
 	mass_del = []
   max_del = 0
   2.upto(num-1) do |i|
-  	if (num%i == 0) && prost?(i) 	  
+  	if (num%i == 0) && i.prime?	  
       max_del = i
   	end
   end
@@ -115,8 +117,23 @@ def prost_count(big)
   big=1001
   while big != 0 do
     num += 1
-    big -= 1 if prost?(num)    
+    big -= 1 if i.prime?    
   end
   p num
 end
 
+#8_1 Найти наибольшую сумму 30-ти последовательных цыфр из массива
+
+require './add'
+
+new_array = []
+
+ARR.split('').map(&:to_i).each_slice(30){ |mas| new_array << mas.reduce(:+) }
+p "8_1"
+p new_array.max
+
+#8_2 Наибольшее произведение четырех последовательных цифр в нижеприведенном 1000-значном числе
+
+ARR.split('').map(&:to_i).each_slice(4){ |mas| new_array << mas.reduce(:*) }
+p "8_1"
+p new_array.max
